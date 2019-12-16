@@ -39,7 +39,12 @@
 
                            var hostConfig = hostContext.Configuration;
                            services.AddApplicationInsightsTelemetryWorkerService("b0a71c53-667e-4b17-bf49-191ac97521ad");
-                           services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((m, o) => m.IncludeDiagnosticSourceActivities.Add("MassTransit"));
+                           services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((m, o) =>
+                           {
+                               m.IncludeDiagnosticSourceActivities.Add("MassTransit");
+                               m.IncludeDiagnosticSourceActivities.Remove("Microsoft.Azure.ServiceBus");
+                               m.IncludeDiagnosticSourceActivities.Remove("Microsoft.Azure.EventHubs");
+                           });
                            LogContext.ConfigureCurrentLogContext(loggerFactory);
                            services.AddMassTransit(x =>
                            {
