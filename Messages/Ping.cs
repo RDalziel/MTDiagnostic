@@ -1,3 +1,4 @@
-﻿namespace Messages {
+﻿namespace Messages
+{
     public class Ping { }
 }

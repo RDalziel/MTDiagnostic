@@ -24,11 +24,10 @@ namespace MTDiagnosticLogging.WebService
             services.AddControllers();
             services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((m, o) =>
             {
-                
+
                 m.IncludeDiagnosticSourceActivities.Add("MassTransit");
-                m.IncludeDiagnosticSourceActivities.Remove("Microsoft.Azure.ServiceBus");
-                m.IncludeDiagnosticSourceActivities.Remove("Microsoft.Azure.EventHubs");
             });
+
             services.AddApplicationInsightsTelemetry("b0a71c53-667e-4b17-bf49-191ac97521ad");
             services.AddMassTransit(x =>
             {
@@ -41,6 +40,7 @@ namespace MTDiagnosticLogging.WebService
                                         });
                 }));
             });
+
             services.AddHostedService<BusService>();
         }
 

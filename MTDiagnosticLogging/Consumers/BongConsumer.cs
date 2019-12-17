@@ -1,13 +1,13 @@
-﻿namespace MTDiagnosticLogging.Service
+﻿namespace MTDiagnosticLogging.Service.Consumers
 {
     using System.Net.Http;
     using System.Threading.Tasks;
     using MassTransit;
     using Messages;
 
-    public class PingConsumer : IConsumer<Ping>
+    public class BongConsumer : IConsumer<Bong>
     {
-        public async Task Consume(ConsumeContext<Ping> context)
+        public async Task Consume(ConsumeContext<Bong> context)
         {
             using var client = new HttpClient();
             await client.GetAsync("https://google.com");

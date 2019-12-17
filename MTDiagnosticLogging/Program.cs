@@ -1,11 +1,11 @@
 ﻿namespace MTDiagnosticLogging.Service
 {
     using System;
+    using Consumers;
     using MassTransit;
     using MassTransit.Azure.ServiceBus.Core;
     using MassTransit.Context;
     using Microsoft.ApplicationInsights.DependencyCollector;
-    using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -42,9 +42,8 @@
                            services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((m, o) =>
                            {
                                m.IncludeDiagnosticSourceActivities.Add("MassTransit");
-                               m.IncludeDiagnosticSourceActivities.Remove("Microsoft.Azure.ServiceBus");
-                               m.IncludeDiagnosticSourceActivities.Remove("Microsoft.Azure.EventHubs");
                            });
+
                            LogContext.ConfigureCurrentLogContext(loggerFactory);
                            services.AddMassTransit(x =>
                            {
@@ -61,6 +60,10 @@
                                                                                                                   re =>
                                                                                                                   {
                                                                                                                       re.Consumer<PingConsumer>(context);
+                                                                                                                      re.Consumer<BingConsumer>(context);
+                                                                                                                      re.Consumer<BongConsumer>(context);
+                                                                                                                      re.Consumer<ZingConsumer>(context);
+                                                                                                                      re.Consumer<DingConsumer>(context);
                                                                                                                   });
                                                                                           }));
                            });
